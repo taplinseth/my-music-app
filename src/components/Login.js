@@ -1,24 +1,54 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import { Button, TextField, Box } from "@material-ui/core";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Dashboard from "./Dashboard";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
-export default function Login() {
-  return (
-    <div class='login'>
-      <Box
-        component="form"
-        sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField id="user-name" label="Username" variant="standard" />
-        <TextField id="password" label="Password" variant="standard" />
-      </Box>
+const Login = () => {
+  const [isLoggedIn, toggleLogin] = useState(false);
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <Box
+          component="span"
+          m={30}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="column"
+        >
+          <div display="flex">
+            <AccountCircle />
+            <TextField placeholder="Username" style={{ width: 220 }} />
+            <br />
+            <br />
+            <LockOpenIcon />
+            <TextField
+              placeholder="Password"
+              type="password"
+              style={{ width: 220 }}
+            />
+          </div>
+          <br />
+          <Button
+            variant="contained"
+            onClick={() => toggleLogin(isLoggedIn ? false : true)}
+            color="secondary"
+            size="medium"
+            style={{ width: 240 }}
+          >
+            Login
+          </Button>
+        </Box>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Dashboard />
+      </div>
+    );
+  }
+};
 
-      <Button id='login-button' variant="contained" disableElevation>Login</Button>
-    </div>
-  );
-}
+export default Login;
